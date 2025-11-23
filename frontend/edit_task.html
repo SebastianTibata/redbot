@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RedBot - Editar Tarea</title>
+    <link rel="stylesheet" href="add_task.css"> 
+</head>
+<body>
+    <div class="add-task-container">
+        <h2>Editar Tarea</h2>
+        <form id="editTaskForm">
+            <label for="taskType">Tipo de tarea</label>
+            <select id="taskType" name="taskType" class="form-control" required>
+              <option value="" disabled selected>Selecciona un tipo de tarea</option>
+              <option value="publicar">Publicar Post</option>
+              <option value="responder">Responder Comentarios</option>
+              <option value="moderar">Moderar Comentarios</option>
+              <option value="validar_cuentas">Validar Cuentas Activas</option>
+              <option value="borrado_emergencia">Borrado de Emergencia</option>
+            </select>
+            
+            <label for="accountId">ID de la cuenta (no editable)</label>
+            <input type="text" id="accountId" placeholder="ID de la cuenta" required disabled>
+            
+            <label for="config">Configuración (JSON)</label>
+            <textarea id="config" placeholder="Configuración (JSON)" required></textarea>
+            
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <div id="editError" class="error"></div>
+        <a href="main.html">Volver al Panel</a>
+    </div>
+    <script src="edit_task.js"></script>
+</body>
+</html>

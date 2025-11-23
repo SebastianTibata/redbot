@@ -1,0 +1,8 @@
+# Ignorar el archivo de secretos y variables de entorno
+.env
+
+# Ignorar carpetas de caché de Python
+__pycache__/
+
+# Ignorar scripts de diagnóstico temporales
+task_service/check_models.py

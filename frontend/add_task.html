@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBot - Agregar Tarea</title>
+  <link rel="stylesheet" href="add_task.css">
+  <style>
+    /* Oculta las opciones de moderador por defecto */
+    #mod-options {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="add-task-container">
+
+    <h2>Generar tarea desde prompt (AI)</h2>
+    <textarea id="ai-prompt" placeholder="Describe la tarea en lenguaje natural..." style="width: 100%; min-height: 80px;"></textarea>
+    <button type="button" id="generate-ai-task-btn" style="margin-top: 10px;">Generar tarea</button>
+
+    <hr style="margin: 25px 0;">
+
+    <h2>Crear Tarea Manualmente</h2>
+    <form id="addTaskForm">
+      
+      <label for="taskType">Tipo de tarea</label>
+      <select id="taskType" name="taskType" class="form-control" required>
+        <option value="" disabled selected>Selecciona un tipo de tarea</option>
+        
+        <option value="publicar">Publicar Post</option>
+        <option value="responder">Responder Comentarios</option>
+        <option value="moderar">Moderar Comentarios</option>
+        <option value="validar_cuentas">Validar Cuentas Activas</option>
+        <option value="borrado_emergencia">Borrado de Emergencia</option>
+      </select>
+      
+      <input type="text" id="accountId" placeholder="ID de la cuenta" required>
+
+      <div id="mod-options">
+        <label for="mod-post-url">URL del Post a Moderar</label>
+        <input type="text" id="mod-post-url" placeholder="http://reddit.com/r/...">
+        
+        <label for="mod-forbidden-words">Palabras Prohibidas (separadas por coma)</label>
+        <input type="text" id="mod-forbidden-words" placeholder="ejemplo, malo, feo">
+        
+        <label for="mod-spam-patterns">Patrones de Spam (separados por coma)</label>
+        <input type="text" id="mod-spam-patterns" placeholder="http://, www.">
+        
+        <label for="mod-caps-percent">Límite de Mayúsculas (%)</label>
+        <input type="number" id="mod-caps-percent" placeholder="70" value="100" min="0" max="100">
+      </div>
+      
+      <textarea id="config" placeholder="Configuración (JSON)" required></textarea>
+      
+      <button type="submit">Crear tarea</button>
+    </form>
+    <div id="addTaskError" class="error"></div>
+  </div>
+  
+  <script src="add_task.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+body { font-family: Arial, sans-serif; background: #f5f5f5; }
+.history-container { max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px #ccc; }
+h2 { margin-top: 0; }
+#logs { margin: 20px 0; }

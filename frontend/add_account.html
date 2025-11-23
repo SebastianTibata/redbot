@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBot - Agregar Cuenta</title>
+  <link rel="stylesheet" href="add_account.css">
+</head>
+<body>
+  <div class="add-account-container">
+    <h2>Agregar Cuenta</h2>
+    <form id="addAccountForm">
+      <select id="platform" required>
+        <option value="">Selecciona plataforma</option>
+        <option value="instagram">Instagram</option>
+        <option value="reddit">Reddit</option>
+        <option value="mastodon">Mastodon</option>
+      </select>
+      <input type="text" id="accountName" placeholder="Nombre de la cuenta" required>
+      <input type="text" id="token" placeholder="Token/API Key" required>
+      <button type="submit">Agregar</button>
+    </form>
+    <div id="addAccountError" class="error"></div>
+  </div>
+  <script src="add_account.js"></script>
+</body>
+</html>

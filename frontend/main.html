@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBot - Panel Principal</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <nav>
+    <a href="add_account.html">Agregar cuenta</a>
+    <a href="add_task.html">Agregar tarea</a>
+    <a href="history.html">Historial</a>
+    <a href="login.html" onclick="logout()">Salir</a>
+  </nav>
+
+  <div class="main-container">
+    
+    <div class="content-box">
+      <h2>Cuentas vinculadas</h2>
+      <ul id="accounts-list">
+        </ul>
+      <div id="accountsError" class="error"></div>
+    </div>
+
+    <div class="content-box">
+      <h2>Tareas</h2>
+      <ul id="tasks-list">
+        </ul>
+      <div id="tasksError" class="error"></div>
+    </div>
+
+  </div>
+  
+  <script src="main.js"></script>
+</body>
+</html>

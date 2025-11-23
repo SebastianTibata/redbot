@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RedBot - Editar Cuenta</title>
+    <link rel="stylesheet" href="add_account.css"> 
+</head>
+<body>
+    <div class="add-account-container">
+        <h2>Editar Cuenta</h2>
+        <form id="editAccountForm">
+            <select id="platform" required disabled>
+                <option value="reddit" selected>Reddit</option>
+            </select>
+            <input type="text" id="handle" placeholder="Nombre de la cuenta" required>
+            <textarea id="token" placeholder="Token/API Key" required></textarea>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <div id="editError" class="error"></div>
+        <a href="main.html">Volver al Panel</a>
+    </div>
+    <script src="edit_account.js"></script>
+</body>
+</html>

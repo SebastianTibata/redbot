@@ -1,0 +1,89 @@
+version: "3.8"
+services:
+  user_service:
+    build: ./user_service
+    container_name: user_service
+    ports:
+      - "${USER_PORT}:8000"
+    networks:
+      - soa_net
+    depends_on:
+      - account_service
+      - auth_service
+    env_file:
+      - .env
+  account_service:
+    build: ./account_service
+    container_name: account_service
+    ports:
+      - "${ACCOUNT_PORT}:8000"
+    networks:
+      - soa_net
+    depends_on:
+      - db
+    env_file:
+      - .env
+  auth_service:
+    build: ./auth_service
+    container_name: auth_service
+    ports:
+      - "${AUTH_PORT}:8000"
+    networks:
+      - soa_net
+    depends_on:
+      - db
+    env_file:
+      - .env
+  task_service:
+    build: ./task_service
+    container_name: task_service
+    ports:
+      - "${TASK_PORT}:8000"
+    networks:
+      - soa_net
+    depends_on:
+      - auth_service
+      - user_service
+    env_file:
+      - .env
+  executor_service:
+    build: ./executor_service
+    container_name: executor_service
+    ports:
+      - "${EXECUTOR_PORT}:8000"
+    networks:
+      - soa_net
+    depends_on:
+      - db
+    env_file:
+      - .env
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    networks:
+      - soa_net
+    depends_on:
+      - account_service
+      - auth_service
+      - user_service
+      - task_service
+      - executor_service
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: soadb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - soa_net
+networks:
+  soa_net:
+    driver: bridge
+volumes:
+  db_data:

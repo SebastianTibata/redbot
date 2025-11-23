@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBot - Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Usuario" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <div id="loginError" class="error"></div>
+    <hr>
+    <a href="#" onclick="showRegister()">¿No tienes cuenta? Crear cuenta</a>
+    <div id="registerSection" style="display:none;">
+      <h2>Crear Cuenta</h2>
+      <form id="registerForm">
+        <input type="text" id="regUsername" placeholder="Usuario" required>
+        <input type="password" id="regPassword" placeholder="Contraseña" required>
+        <button type="submit">Registrar</button>
+      </form>
+      <div id="registerError" class="error"></div>
+    </div>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>

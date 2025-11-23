@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-jose
+fastapi
+uvicorn
+python-multipart
+pydantic
+sqlalchemy
+psycopg2-binary
+python-jose
+python-dotenv
+python-dotenv
+praw
