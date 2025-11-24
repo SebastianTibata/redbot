@@ -11,6 +11,37 @@
     <form id="loginForm">
       <input type="text" id="username" placeholder="Usuario" required>
       <input type="password" id="password" placeholder="Contraseña" required>
+
+      <a href="#" onclick="showSecuritySetup()" style="font-size: 0.9em; display: block; margin: 10px 0; text-align: center;">
+        ⚙️ Configuración de Seguridad (Opcional)
+      </a>
+
+      <div id="securitySection" style="display:none; margin-top: 15px; padding: 15px; background: #f5f5f5; border-radius: 8px;">
+        <label style="display: block; margin-bottom: 10px; font-weight: bold;">Tipo de Autenticación:</label>
+        <select id="securityAuthType" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+          <option value="disabled">Deshabilitada (por defecto)</option>
+          <option value="symmetric">Simétrica (llave compartida)</option>
+          <option value="asymmetric">Asimétrica (firma digital)</option>
+        </select>
+
+        <div id="symmetricSecurityFields" style="display: none;">
+          <label style="display: block; margin-bottom: 5px;">Llave Maestra:</label>
+          <input type="password" id="securityMasterKey" placeholder="Ingrese la llave maestra" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <div id="asymmetricSecurityFields" style="display: none;">
+          <label style="display: block; margin-bottom: 5px;">Access Token:</label>
+          <input type="text" id="securityAccessToken" placeholder="Token de acceso" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+
+          <label style="display: block; margin-bottom: 5px;">Access Signature:</label>
+          <input type="text" id="securityAccessSignature" placeholder="Firma de acceso" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <p style="font-size: 0.85em; color: #666; margin-top: 10px;">
+          Solo configure esto si el administrador le proporcionó credenciales de seguridad adicionales.
+        </p>
+      </div>
+
       <button type="submit">Entrar</button>
     </form>
     <div id="loginError" class="error"></div>
@@ -26,6 +57,14 @@
       <div id="registerError" class="error"></div>
     </div>
   </div>
+  <script>
+    // Mostrar/ocultar campos según el tipo de seguridad seleccionado
+    document.getElementById('securityAuthType').addEventListener('change', function() {
+      const authType = this.value;
+      document.getElementById('symmetricSecurityFields').style.display = authType === 'symmetric' ? 'block' : 'none';
+      document.getElementById('asymmetricSecurityFields').style.display = authType === 'asymmetric' ? 'block' : 'none';
+    });
+  </script>
   <script src="login.js"></script>
 </body>
 </html>

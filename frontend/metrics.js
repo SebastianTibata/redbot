@@ -4,35 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMetrics();
 });
 
-const token = localStorage.getItem('token');
-
 // Cargar todas las métricas
 async function loadMetrics() {
     const errorDiv = document.getElementById('metricsError');
     errorDiv.textContent = '';
 
     try {
-        // Verificar autenticación
-        if (!token) {
-            window.location.href = 'login.html';
-            return;
-        }
-
         // Cargar datos de cuentas y tareas en paralelo
         const [accountsRes, tasksRes] = await Promise.all([
-            fetch('/api/accounts', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            }),
-            fetch('/api/tasks/', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            })
+            secureFetch('/api/accounts'),
+            secureFetch('/api/tasks/')
         ]);
-
-        // Verificar autenticación en las respuestas
-        if (accountsRes.status === 401 || tasksRes.status === 401) {
-            window.location.href = 'login.html';
-            return;
-        }
 
         if (!accountsRes.ok || !tasksRes.ok) {
             throw new Error('Error al cargar los datos');
@@ -149,9 +131,4 @@ function updateSuccessRate(tasks) {
 
     document.getElementById('successPercentage').textContent = `${successRate}%`;
     document.getElementById('successBar').style.width = `${successRate}%`;
-}
-
-// Función de logout
-function logout() {
-    localStorage.removeItem('token');
 }

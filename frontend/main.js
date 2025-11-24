@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchTasks();
 });
 
-const token = localStorage.getItem('token');
-
 // --- Cargar Cuentas ---
 async function fetchAccounts() {
     const list = document.getElementById('accounts-list');
@@ -14,14 +12,8 @@ async function fetchAccounts() {
     if (!list) return;
 
     try {
-        const res = await fetch('/api/accounts', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const res = await secureFetch('/api/accounts');
 
-        if (res.status === 401) {
-            window.location.href = 'login.html';
-            return;
-        }
         if (res.status === 502) {
             errorDiv.textContent = 'Error: 502 Bad Gateway (El servicio de cuentas está caído)';
             return;
@@ -34,12 +26,11 @@ async function fetchAccounts() {
         list.innerHTML = ''; // Limpiar lista
         accounts.forEach(acc => {
             const li = document.createElement('li');
-            // Esta parte ya estaba correcta
             li.innerHTML = `
                 ID: ${acc.id} - ${acc.handle} (${acc.platform})
-                
+
                 <a href="edit_account.html?id=${acc.id}" class="edit-btn">Editar</a>
-                
+
                 <button class="delete-btn" data-id="${acc.id}" data-type="account">X</button>
             `;
             list.appendChild(li);
@@ -56,13 +47,8 @@ async function fetchTasks() {
     if (!list) return;
 
     try {
-        const res = await fetch('/api/tasks/', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (res.status === 401) {
-            window.location.href = 'login.html';
-            return;
-        }
+        const res = await secureFetch('/api/tasks/');
+
         if (res.status === 502) {
             errorDiv.textContent = 'Error: 502 Bad Gateway (El servicio de tareas está caído)';
             return;
@@ -74,18 +60,15 @@ async function fetchTasks() {
         list.innerHTML = ''; // Limpiar lista
         tasks.forEach(task => {
             const li = document.createElement('li');
-            
-            // ▼▼▼ BLOQUE CORREGIDO ▼▼▼
-            // Añadimos el enlace "Editar" junto al botón "Eliminar"
+
             li.innerHTML = `
                 ${task.type} - ${task.status}
-                
+
                 <a href="edit_task.html?id=${task.id}" class="edit-btn">Editar</a>
-                
+
                 <button class="delete-btn" data-id="${task.id}" data-type="task">X</button>
             `;
-            // ^^^ BLOQUE CORREGIDO ^^^
-            
+
             if (task.status === 'failed') {
                 li.style.color = 'red';
             }
@@ -101,16 +84,14 @@ async function fetchTasks() {
 
 // --- Manejador de Clics para Borrar ---
 document.addEventListener('click', function(e) {
-    // Revisa si el clic fue en un botón con la clase 'delete-btn'
     if (e.target.classList.contains('delete-btn')) {
         const id = e.target.dataset.id;
         const type = e.target.dataset.type;
-        
+
         if (confirm(`¿Estás seguro de que quieres eliminar ${type} con ID ${id}?`)) {
             handleDeleteClick(id, type);
         }
     }
-    // No necesitamos un manejador para 'edit-btn' porque es un enlace <a>
 });
 
 async function handleDeleteClick(id, type) {
@@ -124,11 +105,8 @@ async function handleDeleteClick(id, type) {
     }
 
     try {
-        const res = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+        const res = await secureFetch(url, {
+            method: 'DELETE'
         });
 
         if (!res.ok) {
@@ -137,7 +115,7 @@ async function handleDeleteClick(id, type) {
         }
 
         alert(`${type} eliminado exitosamente.`);
-        
+
         // Recargar las listas
         if (type === 'account') {
             fetchAccounts();
@@ -148,9 +126,4 @@ async function handleDeleteClick(id, type) {
     } catch (err) {
         alert(`Error: ${err.message}`);
     }
-}
-
-// --- Función de Salir (Logout) ---
-function logout() {
-    localStorage.removeItem('token');
 }
