@@ -6,10 +6,17 @@
   <link rel="stylesheet" href="history.css">
 </head>
 <body>
+  <nav style="background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+    <a href="main.html" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px;">Panel Principal</a>
+    <a href="add_account.html" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px;">Agregar cuenta</a>
+    <a href="add_task.html" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px;">Agregar tarea</a>
+    <a href="history.html" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px; background: #667eea; color: white;">Historial</a>
+    <a href="metrics.html" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px;">Métricas</a>
+    <a href="login.html" onclick="logout()" style="text-decoration: none; color: #667eea; padding: 10px 20px; border-radius: 5px;">Salir</a>
+  </nav>
   <div class="history-container">
     <h2>Historial de Ejecución</h2>
     <div id="logs"></div>
-    <a href="main.html">Volver al panel</a>
   </div>
   <script src="history.js"></script>
 </body>

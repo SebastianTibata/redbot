@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBot - Dashboard de Métricas</title>
+  <link rel="stylesheet" href="metrics.css">
+</head>
+<body>
+  <nav>
+    <a href="main.html">Panel Principal</a>
+    <a href="add_account.html">Agregar cuenta</a>
+    <a href="add_task.html">Agregar tarea</a>
+    <a href="history.html">Historial</a>
+    <a href="metrics.html" class="active">Métricas</a>
+    <a href="login.html" onclick="logout()">Salir</a>
+  </nav>
+
+  <div class="metrics-container">
+    <h1>Dashboard de Métricas</h1>
+
+    <div class="metrics-grid">
+      <!-- Métricas generales -->
+      <div class="metric-card">
+        <h3>Total de Cuentas</h3>
+        <div class="metric-value" id="totalAccounts">-</div>
+        <div class="metric-label">cuentas vinculadas</div>
+      </div>
+
+      <div class="metric-card">
+        <h3>Total de Tareas</h3>
+        <div class="metric-value" id="totalTasks">-</div>
+        <div class="metric-label">tareas registradas</div>
+      </div>
+
+      <div class="metric-card">
+        <h3>Tareas Completadas</h3>
+        <div class="metric-value success" id="completedTasks">-</div>
+        <div class="metric-label">tareas exitosas</div>
+      </div>
+
+      <div class="metric-card">
+        <h3>Tareas Pendientes</h3>
+        <div class="metric-value warning" id="pendingTasks">-</div>
+        <div class="metric-label">en espera</div>
+      </div>
+
+      <div class="metric-card">
+        <h3>Tareas en Progreso</h3>
+        <div class="metric-value info" id="inProgressTasks">-</div>
+        <div class="metric-label">ejecutándose</div>
+      </div>
+
+      <div class="metric-card">
+        <h3>Tareas Fallidas</h3>
+        <div class="metric-value error" id="failedTasks">-</div>
+        <div class="metric-label">con errores</div>
+      </div>
+    </div>
+
+    <!-- Sección de estadísticas por plataforma -->
+    <div class="stats-section">
+      <h2>Distribución por Plataforma</h2>
+      <div id="platformStats" class="platform-list">
+        <div class="loading">Cargando estadísticas...</div>
+      </div>
+    </div>
+
+    <!-- Sección de estadísticas de tareas por tipo -->
+    <div class="stats-section">
+      <h2>Tareas por Tipo</h2>
+      <div id="taskTypeStats" class="task-type-list">
+        <div class="loading">Cargando estadísticas...</div>
+      </div>
+    </div>
+
+    <!-- Tasa de éxito -->
+    <div class="stats-section">
+      <h2>Tasa de Éxito</h2>
+      <div class="success-rate-container">
+        <div class="success-bar-bg">
+          <div class="success-bar" id="successBar" style="width: 0%"></div>
+        </div>
+        <div class="success-percentage" id="successPercentage">0%</div>
+      </div>
+    </div>
+
+    <!-- Botón de recarga -->
+    <div class="actions">
+      <button onclick="loadMetrics()" class="refresh-btn">🔄 Actualizar Métricas</button>
+    </div>
+
+    <div id="metricsError" class="error"></div>
+  </div>
+
+  <script src="metrics.js"></script>
+</body>
+</html>
